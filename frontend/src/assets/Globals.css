@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+/************************************************** customize tailwindcss elements  */
+@theme {
+    /* Add custom colors. usage: bg-midnight text-midnight. but first disable any default color by setting the theme namespace for that color to initial: */
+    --color-lime-*: initial;
+    --color-fuchsia-*: initial;
+    --color-primary: #0c5;
+    --color-accent: #cc5;
+    --color-dark: #301934;
+    --color-light: #f555f5;
+
+    /* custom breakpoints */
+    --breakpoint-*: initial;
+    --breakpoint-mobile: 28rem;
+    --breakpoint-tablet: 42rem;
+    --breakpoint-laptop: 64rem;
+    --breakpoint-desktop: 80rem;
+
+    /* custom fonts. Usage: className="font-roboto"*/
+    --font-roboto: "Roboto", sans-serif;
+}
+
+/************************************************** reusable components */
+@layer components {
+    .btn-primary {
+        border-radius: calc(infinity * 1px);
+        background-color: var(--color-primary);
+        padding-inline: --spacing(5);
+        padding-block: --spacing(2);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-white);
+        box-shadow: var(--shadow-md);
+        cursor: pointer;
+
+        &:hover {
+            @media (hover: hover) {
+                background-color: var(--color-accent);
+            }
+        }
+    }
+
+    .btn-secondary {
+        border-radius: calc(infinity * 1px);
+        background-color: var(--color-accent);
+        padding-inline: --spacing(5);
+        padding-block: --spacing(2);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-dark);
+        box-shadow: var(--shadow-md);
+        cursor: pointer;
+
+        &:hover {
+            @media (hover: hover) {
+                background-color: var(--color-primary);
+            }
+        }
+    }
+}
+
+
+/************************************************** add/remove the ability to drag some elements */
+.DRAGGABLE {
+    --wails-draggable: drag;
+}
+
+* {
+    --wails-draggable: no-drag;
+}
+
+/************************************************* Hide scrollbar for all elements */
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/*************************************************** some shared styles */
+ul {
+    margin: 0;
+    padding: 0 0 0 1.5em;
+    list-style-type: none;
+}
+
+li {
+    margin: 1.5em 0;
+    padding: 0;
+}

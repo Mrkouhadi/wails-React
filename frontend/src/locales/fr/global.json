@@ -1,0 +1,20 @@
+{
+    "buttons": {
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "modal": "Ouvrir une fenêtre modale",
+        "success-toast": "Ouvrir un toast de succès",
+        "failure-toast": "Ouvrir un toast d'échec",
+        "primary": "Bouton principal",
+        "secondary": "Bouton secondaire",
+        "back": " Retourner à la page d'accueil"
+    },
+    "headings": {
+        "greeting": "Bonjour, belles personnes !",
+        "toast-success-message": "Vous avez déclenché un toast de succès avec succès !"
+    },
+    "links": {
+        "home": "Page d'accueil",
+        "setting": "Paramètres"
+    }
+}

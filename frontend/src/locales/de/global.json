@@ -1,0 +1,20 @@
+{
+    "buttons": {
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "modal": "Ein Modal öffnen",
+        "success-toast": "Erfolgsmeldung anzeigen",
+        "failure-toast": "Fehlermeldung anzeigen",
+        "primary": "Primärknopf",
+        "secondary": "Sekundärknopf",
+        "back": "Gehe zurück zur Startseite"
+    },
+    "headings": {
+        "greeting": "Hallo, wunderschöne Menschen!",
+        "toast-success-message": "Du hast erfolgreich eine Erfolgsmeldung ausgelöst!"
+    },
+    "links": {
+        "home": "Startseite",
+        "setting": "Einstellungen"
+    }
+}
