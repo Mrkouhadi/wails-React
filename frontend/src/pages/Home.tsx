@@ -14,7 +14,6 @@ function Home({}: Props) {
     message: string;
     type: "success" | "error" | "warning" | "info";
   } | null>(null);
-
   // handle modal opening and closing
   const [isModalOpen, setIsModalOpen] = useState(false);
   const ConfirmModal = () => {

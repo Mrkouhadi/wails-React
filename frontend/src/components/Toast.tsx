@@ -16,14 +16,11 @@ const Toast: React.FC<ToastProps> = ({ message, type = "info", onClose }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Slide in when mounted
     setVisible(true);
-
     const timer = setTimeout(() => {
-      setVisible(false); // Start slide-out animation
-      setTimeout(onClose, 300); // Wait for animation before removing
+      setVisible(false);
+      setTimeout(onClose, 300);
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [onClose]);
 
@@ -33,9 +30,9 @@ const Toast: React.FC<ToastProps> = ({ message, type = "info", onClose }) => {
     warning: "bg-yellow-500 text-black",
     info: "bg-blue-500 text-white",
   };
+
   const ToastIcon = () => {
     const iconClasses = "h-6 w-6";
-
     switch (type) {
       case "success":
         return <CheckCircleIcon className={iconClasses} />;
