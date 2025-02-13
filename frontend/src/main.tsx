@@ -22,12 +22,15 @@ i18next.init({
 
 // rendering the app
 import ReactDOM from "react-dom/client";
+import ContextProvider from "./context/ContextProvider";
 ReactDOM.createRoot(
   document.getElementById("wails-root-ui") as HTMLElement
 ).render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18next}>
-      <App />
-    </I18nextProvider>
+    <ContextProvider>
+      <I18nextProvider i18n={i18next}>
+        <App />
+      </I18nextProvider>
+    </ContextProvider>
   </React.StrictMode>
 );

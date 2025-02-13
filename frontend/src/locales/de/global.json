@@ -3,8 +3,7 @@
         "confirm": "Bestätigen",
         "cancel": "Abbrechen",
         "modal": "Ein Modal öffnen",
-        "success-toast": "Erfolgsmeldung anzeigen",
-        "failure-toast": "Fehlermeldung anzeigen",
+        "toast-success": "Erfolgsmeldung anzeigen",
         "primary": "Primärknopf",
         "secondary": "Sekundärknopf",
         "back": "Gehe zurück zur Startseite"

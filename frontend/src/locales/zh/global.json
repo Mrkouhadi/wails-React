@@ -3,8 +3,7 @@
         "confirm": "确认",
         "cancel": "取消",
         "modal": "打开模态框",
-        "success-toast": "打开成功通知",
-        "failure-toast": "打开失败通知",
+        "toast-success": "打开成功通知",
         "primary": "主要按钮",
         "secondary": "次要按钮",
         "back": "返回主页"

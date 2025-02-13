@@ -1,6 +1,6 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Home, Setting } from "./pages";
-import Sidebar from "./components/Sidebar";
+import { Sidebar } from "./components";
 
 function App() {
   return (

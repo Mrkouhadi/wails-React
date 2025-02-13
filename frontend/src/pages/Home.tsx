@@ -1,19 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { ThemeToggler } from "../components";
-import LanguageSwitcher from "../components/LanguageSwitcher";
-import Modal from "../components/Modal";
-import Toast from "../components/Toast";
+import { ThemeToggler, LanguageSwitcher, Modal } from "../components";
 import { useState } from "react";
+import { useToast } from "../context/ToastContext";
 
 type Props = {};
 
 function Home({}: Props) {
   const [t, _] = useTranslation("global");
-  // toast
-  const [toast, setToast] = useState<{
-    message: string;
-    type: "success" | "error" | "warning" | "info";
-  } | null>(null);
+  const { showToast } = useToast();
+
   // handle modal opening and closing
   const [isModalOpen, setIsModalOpen] = useState(false);
   const ConfirmModal = () => {
@@ -29,7 +24,7 @@ function Home({}: Props) {
       <div className="w-full flex items-center justify-between my-12">
         {/* a modal */}
         <button
-          className="text-black dark:text-white"
+          className="px-4 py-2 bg-transparent  border-1 text-white rounded-full shadow-md hover:border-primary hover:bg-primary transition"
           onClick={() => setIsModalOpen(true)}
         >
           {t("buttons.modal")}
@@ -40,25 +35,15 @@ function Home({}: Props) {
           onClose={() => setIsModalOpen(false)}
           onConfirm={ConfirmModal}
         />
+
         {/* a toast */}
         <button
-          onClick={() =>
-            setToast({
-              message: t("headings.toast-success-message"),
-              type: "success",
-            })
-          }
-          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition"
+          onClick={() => showToast("This is a success message!", "success")}
+          className="px-4 py-2 bg-transparent  border-1 text-white rounded-full shadow-md hover:border-primary hover:bg-primary transition"
         >
-          {t("buttons.success-toast")}
+          {t("buttons.toast-success")}
         </button>
-        {toast && (
-          <Toast
-            message={toast.message}
-            type={toast.type}
-            onClose={() => setToast(null)}
-          />
-        )}
+
         {/* primary and secondary buttons */}
         <button className="btn-secondary">{t("buttons.secondary")}</button>
         <button className="btn-primary">{t("buttons.primary")}</button>

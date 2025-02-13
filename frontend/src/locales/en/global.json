@@ -3,8 +3,7 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "modal": "Open a Modal",
-        "success-toast": "Open a success toast",
-        "failure-toast": "Open a failure toast",
+        "toast-success": "Open a success toast",
         "primary": "Primary button",
         "secondary": "Secondary button",
         "back": "Go back to the home page"
