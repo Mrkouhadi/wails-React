@@ -4,12 +4,12 @@ A powerful **Wails**, **ReactJS**, **TypeScript**, and **TailwindCSS** starter t
 
 ## 📌 Features
 
-✅ **Wails** for cross-platform desktop apps  
-✅ **ReactJS + TypeScript** for the frontend  
-✅ **TailwindCSS** for styling with **custom colors**  
-✅ **Dark Mode** support  
-✅ **Multi-language support** (4 languages, easily extendable)  
-✅ **Reusable modal & toast components**  
+✅ **Wails** for cross-platform desktop apps
+✅ **ReactJS + TypeScript** for the frontend
+✅ **TailwindCSS** for styling with **custom colors**
+✅ **Dark Mode** support
+✅ **Multi-language support** (4 languages, easily extendable)
+✅ **Reusable modal & toast components**
 ✅ **Hot reloading** for a smooth development experience
 
 ---

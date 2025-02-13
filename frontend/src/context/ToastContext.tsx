@@ -1,3 +1,9 @@
+// /*
+// USAGE:
+//     const { showToast } = useToast();
+//     showToast("This is a success message!", "success");
+// */
+
 import React, {
   createContext,
   useContext,
@@ -5,6 +11,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
+
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -39,8 +46,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
 
   const showToast = (message: string, type: ToastType = "info") => {
     const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => removeToast(id), 3000); // Automatically remove after timeout
+    setToasts((prev) => [{ id, message, type }, ...prev]);
   };
 
   const removeToast = (id: number) => {
@@ -52,17 +58,36 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
       {children}
       <div className="fixed top-5 right-5 space-y-2 z-50">
         {toasts.map(({ id, message, type }) => (
-          <Toast key={id} message={message} type={type} />
+          <Toast
+            key={id}
+            id={id}
+            message={message}
+            type={type}
+            onClose={() => removeToast(id)}
+          />
         ))}
       </div>
     </ToastContext.Provider>
   );
 };
 
-const Toast: React.FC<{ message: string; type: ToastType }> = ({
-  message,
-  type,
-}) => {
+const Toast: React.FC<{
+  id: number;
+  message: string;
+  type: ToastType;
+  onClose: () => void;
+}> = ({ id, message, type, onClose }) => {
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsClosing(true);
+      setTimeout(() => onClose(), 400); // Wait for animation before removing
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [id]);
+
   const typeStyles = {
     success: "bg-green-500 text-white",
     error: "bg-red-500 text-white",
@@ -86,16 +111,12 @@ const Toast: React.FC<{ message: string; type: ToastType }> = ({
 
   return (
     <div
-      className={`flex items-center gap-4 px-4 py-3 rounded-lg shadow-lg ${typeStyles[type]}`}
+      className={`flex items-center gap-4 px-4 py-3 rounded-lg shadow-lg transition-transform duration-500 ease-in-out ${
+        typeStyles[type]
+      } ${isClosing ? "animate-slide-out-right" : "animate-slide-in-right"}`}
     >
       <ToastIcon />
       <span>{message}</span>
     </div>
   );
 };
-
-/* 
-USAGE:
-    const { showToast } = useToast();
-    showToast("This is a success message!", "success")
-*/

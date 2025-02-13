@@ -18,6 +18,7 @@ var icon []byte
 
 func main() {
 	app := NewApp()
+
 	err := wails.Run(&options.App{
 		Title:            "myproject",
 		Width:            1024,
@@ -29,7 +30,6 @@ func main() {
 		OnBeforeClose:    app.BeforeClose,
 		WindowStartState: 0, // Normal = 0 ,Maximised = 1,Minimised = 2,Fullscreen = 3
 		Frameless:        false,
-		// OnShutdown:       app.OnShutdown,
 		Bind: []interface{}{
 			app,
 		},

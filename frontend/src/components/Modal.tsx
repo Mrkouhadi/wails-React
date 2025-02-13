@@ -1,3 +1,20 @@
+/* 
+// USAGE:
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const ConfirmModal = () => {
+    // more logic here
+    setIsModalOpen(false);
+  };
+        <button className="" onClick={() => setIsModalOpen(true)}>
+          {t("buttons.modal")}
+        </button>
+        <Modal
+          message={t("headings.greeting")}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={ConfirmModal}
+        />
+*/
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -47,20 +64,3 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-// USAGE:
-/* 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const ConfirmModal = () => {
-    // more logic here
-    setIsModalOpen(false);
-  };
-        <button className="" onClick={() => setIsModalOpen(true)}>
-          {t("buttons.modal")}
-        </button>
-        <Modal
-          message={t("headings.greeting")}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={ConfirmModal}
-        />
-*/
