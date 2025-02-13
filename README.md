@@ -95,14 +95,6 @@ Dark mode is already built-in! 🌙
 - Automatically remembers user preference
 - Easily customizable
 
----
-
-## 🔥 Modal & Toast System
-
-- **Reusable `Modal.tsx`** → Easily show popups
-- **Reusable `Toast.tsx`** → Show multiple toasts at once
-
----
 
 ## 🛠️ Development
 
