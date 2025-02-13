@@ -1,10 +1,10 @@
-# 🚀 Wails + React + TypeScript + TailwindCSS Starter
+# 🚀 Wails + Golang + React + TypeScript + TailwindCSS Starter
 
-A powerful **Wails**, **ReactJS**, **TypeScript**, and **TailwindCSS** starter template for building modern desktop applications.
+A powerful **Wails**, **Golang**, **ReactJS**, **TypeScript**, and **TailwindCSS** starter template for building modern desktop applications.
 
 ## 📌 Features
 
-✅ **Wails** for cross-platform desktop apps
+✅ **Wails + Golang** for cross-platform desktop apps
 ✅ **ReactJS + TypeScript** for the frontend
 ✅ **TailwindCSS** for styling with **custom colors**
 ✅ **Dark Mode** support
@@ -23,10 +23,10 @@ A powerful **Wails**, **ReactJS**, **TypeScript**, and **TailwindCSS** starter t
 │   ├── 📜 src/locales/    # Multi-language JSON files
 │   ├── 📜 src/components/
 │   │   ├── 📜 Modal.tsx   # Reusable modal component
-│   │   ├── 📜 Toast.tsx   # Toast notification system
 │   ├── 📜 src/context/
 │   │   ├── 📜 ThemeContext.tsx  # Dark mode context
 │   │   ├── 📜 LanguageContext.tsx  # Multi-language context
+│   │   ├── 📜 ToastContext.tsx  # Toasts context
 │   ├── 📜 src/main.tsx     # React entry point
 │   ├── 📜 src/App.tsx      # Main App component
 │   ├── 📜 vite.config.ts   # Vite configuration
@@ -49,6 +49,8 @@ You can customize the project by editing:
 - **`frontend/src/locales/`** → Multi-language JSON files
 - **`frontend/src/context/ThemeContext.tsx`** → Toggle dark mode
 - **`frontend/src/context/LanguageContext.tsx`** → Change language
+- **`frontend/src/context/ToastContext.tsx`** → Edit Toast's design
+- **`frontend/src/components/Modal.tsx`** → Edit the Modal's design
 
 ---
 
@@ -58,15 +60,28 @@ This starter includes support for **4 languages** and makes it easy to add more.
 
 - Languages are stored in **`src/locales/`**
 - You can switch between languages dynamically
-- Easily add new languages by creating a new JSON file
-
+- Easily add new languages by creating a new folder in locales and add a JSON file.
 Example:
-
 ```json
 // src/locales/en.json
 {
-  "welcome": "Welcome!",
-  "settings": "Settings"
+  "buttons": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "modal": "Open a Modal",
+    "toast-success": "Open a success toast",
+    "primary": "Primary button",
+    "secondary": "Secondary button",
+    "back": "Go back to the home page"
+  },
+  "headings": {
+    "greeting": "Hello beautiful people!",
+    "toast-success-message": "You have successfully fired a success toast!"
+  },
+  "links": {
+    "home": "Home",
+    "setting": "Setting"
+  }
 }
 ```
 
@@ -118,7 +133,6 @@ This generates a **redistributable package** for your platform.
 - Wails Documentation: [https://wails.io/docs](https://wails.io/docs)
 - ReactJS: [https://react.dev](https://react.dev)
 - TailwindCSS: [https://tailwindcss.com](https://tailwindcss.com)
-- TypeScript: [https://www.typescriptlang.org](https://www.typescriptlang.org)
 
 ---
 
