@@ -95,7 +95,6 @@ Dark mode is already built-in! 🌙
 - Automatically remembers user preference
 - Easily customizable
 
-
 ## 🛠️ Development
 
 To start in **live development mode**, run:
