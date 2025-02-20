@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import i18next from "i18next"; // ✅ Import directly
+import i18next from "i18next";
 import { SavePreferences, GetPreferences } from "../../wailsjs/go/main/App";
+import { LanguageModal } from "../components";
 
 type LanguageContextType = {
   language: string;
@@ -14,15 +15,21 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguage] = useState<string>(i18next.language); // ✅ Get initial language from i18n
+  const [language, setLanguage] = useState<string>(i18next.language);
+  const [showLanguageModal, setShowLanguageModal] = useState<boolean>(false);
 
   useEffect(() => {
     const loadPreferences = async () => {
       try {
         const preferences = await GetPreferences();
-        const savedLanguage = preferences.language || "en"; // Default to English
-        setLanguage(savedLanguage);
-        i18next.changeLanguage(savedLanguage); // ✅ Corrected
+        if (!preferences.language) {
+          // No language set, show the modal
+          setShowLanguageModal(true);
+        } else {
+          // Language already set, update state
+          setLanguage(preferences.language);
+          i18next.changeLanguage(preferences.language);
+        }
       } catch (error) {
         console.error("Error loading language preferences:", error);
       }
@@ -33,8 +40,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const changeLanguage = async (lng: string) => {
     try {
       setLanguage(lng);
-      i18next.changeLanguage(lng); // ✅ Corrected
+      i18next.changeLanguage(lng);
       await SavePreferences({ language: lng, theme: "" });
+      // If the modal was open, close it after a language is chosen
+      if (showLanguageModal) setShowLanguageModal(false);
     } catch (error) {
       console.error("Error saving language preference:", error);
     }
@@ -43,6 +52,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <LanguageContext.Provider value={{ language, changeLanguage }}>
       {children}
+      {showLanguageModal && <LanguageModal onLanguageSelect={changeLanguage} />}
     </LanguageContext.Provider>
   );
 };

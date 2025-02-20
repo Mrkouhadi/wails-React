@@ -33,18 +33,17 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const [t, _] = useTranslation("global");
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div
-        className={`transform transition-transform duration-300 ${
+        className={`bg-surface dark:bg-dark-surface transform transition-transform duration-300 ${
           isOpen ? "translate-y-0" : "-translate-y-full"
-        } w-1/3 bg-dark dark:bg-light rounded-lg p-5 flex flex-col items-center justify-center`}
+        } w-1/3 rounded-lg p-4 flex flex-col items-center justify-center`}
       >
-        <h2 className="text-lg text-center text-light dark:text-dark mb-8">
+        <h2 className="text-lg text-center text-primary dark:text-dark-primary mb-8">
           {message}
         </h2>
-        <div className="flex justify-end gap-16">
+        <div className="flex items-center justify-around w-full">
           <button onClick={onClose} className="btn-secondary">
             {t("buttons.cancel")}
           </button>
@@ -62,5 +61,4 @@ const Modal: React.FC<ModalProps> = ({
     </div>
   );
 };
-
 export default Modal;

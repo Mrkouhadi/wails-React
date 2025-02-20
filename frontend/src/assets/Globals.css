@@ -7,10 +7,31 @@
     /* Add custom colors. usage: bg-midnight text-midnight. but first disable any default color by setting the theme namespace for that color to initial: */
     --color-lime-*: initial;
     --color-fuchsia-*: initial;
+
     --color-primary: #0c5;
-    --color-accent: #cc5;
-    --color-dark: #301934;
-    --color-light: #f555f5;
+    --color-secondary: #03bfa5;
+    --color-background: #e9ecef;
+    --color-surface: #ffffff;
+    --color-text-primary: #212121;
+    --color-text-secondary: #757575;
+    --color-border: #e0e0e0;
+    --color-success: #4caf50;
+    --color-error: #f44336;
+    --color-warning: #ff9800;
+    --color-info: #2196f3;
+
+    /* Dark Mode */
+    --color-dark-primary: #0c5;
+    --color-dark-secondary: #03dac6;
+    --color-dark-background: #121212;
+    --color-dark-surface: #1e1e1e;
+    --color-dark-text-primary: #e0e0e0;
+    --color-dark-text-secondary: #bdbdbd;
+    --color-dark-border: #333333;
+    --color-dark-success: #81c784;
+    --color-dark-error: #e57373;
+    --color-dark-warning: #ffb74d;
+    --color-dark-info: #64b5f6;
 
     /* custom breakpoints */
     --breakpoint-*: initial;
@@ -26,39 +47,27 @@
 /************************************************** reusable components */
 @layer components {
     .btn-primary {
-        border-radius: calc(infinity * 1px);
-        background-color: var(--color-primary);
-        padding-inline: --spacing(5);
-        padding-block: --spacing(2);
-        font-weight: var(--font-weight-semibold);
-        color: var(--color-white);
-        box-shadow: var(--shadow-md);
-        cursor: pointer;
+        @apply rounded-full bg-[var(--color-primary)] px-5 py-2 text-[var(--color-background)] dark:text-[var(--color-dark-background)] shadow-md cursor-pointer transition;
+    }
 
-        &:hover {
-            @media (hover: hover) {
-                background-color: var(--color-accent);
-            }
+    @media (hover: hover) {
+        .btn-primary:hover {
+            @apply bg-[var(--color-secondary)];
         }
     }
 
     .btn-secondary {
-        border-radius: calc(infinity * 1px);
-        background-color: var(--color-accent);
-        padding-inline: --spacing(5);
-        padding-block: --spacing(2);
-        font-weight: var(--font-weight-semibold);
-        color: var(--color-dark);
-        box-shadow: var(--shadow-md);
-        cursor: pointer;
+        @apply rounded-full bg-[var(--color-secondary)] px-5 py-2 text-[var(--color-background)] dark:text-[var(--color-dark-background)] shadow-md cursor-pointer transition;
+    }
 
-        &:hover {
-            @media (hover: hover) {
-                background-color: var(--color-primary);
-            }
+    @media (hover: hover) {
+        .btn-secondary:hover {
+            @apply bg-[var(--color-primary)];
         }
     }
 }
+
+
 
 /* these keyframes are for the toast animations */
 @keyframes slide-in-right {

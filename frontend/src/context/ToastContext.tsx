@@ -89,10 +89,10 @@ const Toast: React.FC<{
   }, [id]);
 
   const typeStyles = {
-    success: "bg-green-500 text-white",
-    error: "bg-red-500 text-white",
-    warning: "bg-yellow-500 text-black",
-    info: "bg-blue-500 text-white",
+    success: "bg-success text-background",
+    error: "bg-error text-background",
+    warning: "bg-warning text-dark-background",
+    info: "bg-info text-background",
   };
 
   const ToastIcon = () => {
