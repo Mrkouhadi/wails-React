@@ -88,7 +88,7 @@ func (a *App) GetPreferences() (UserPreferences, error) {
 	if os.IsNotExist(err) {
 		// If the file does not exist, return default preferences
 		return UserPreferences{
-			Language: "",
+			Language: "en",
 			Theme:    "light",
 		}, nil
 	} else if err != nil {

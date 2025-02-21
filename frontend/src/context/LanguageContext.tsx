@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import i18next from "i18next";
 import { SavePreferences, GetPreferences } from "../../wailsjs/go/main/App";
-import { LanguageModal } from "../components";
+import { useToast } from "./ToastContext";
 
 type LanguageContextType = {
   language: string;
@@ -16,22 +16,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [language, setLanguage] = useState<string>(i18next.language);
-  const [showLanguageModal, setShowLanguageModal] = useState<boolean>(false);
-
+  const { showToast } = useToast();
   useEffect(() => {
     const loadPreferences = async () => {
       try {
         const preferences = await GetPreferences();
-        if (!preferences.language) {
-          // No language set, show the modal
-          setShowLanguageModal(true);
-        } else {
-          // Language already set, update state
-          setLanguage(preferences.language);
-          i18next.changeLanguage(preferences.language);
-        }
+        setLanguage(preferences.language);
+        i18next.changeLanguage(preferences.language);
       } catch (error) {
-        console.error("Error loading language preferences:", error);
+        showToast(
+          "Error loading language preferences. ERROR:" + error,
+          "error"
+        );
       }
     };
     loadPreferences();
@@ -42,17 +38,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
       setLanguage(lng);
       i18next.changeLanguage(lng);
       await SavePreferences({ language: lng, theme: "" });
-      // If the modal was open, close it after a language is chosen
-      if (showLanguageModal) setShowLanguageModal(false);
     } catch (error) {
-      console.error("Error saving language preference:", error);
+      showToast("Error saving language preferences. ERROR:" + error, "error");
     }
   };
-
   return (
     <LanguageContext.Provider value={{ language, changeLanguage }}>
       {children}
-      {showLanguageModal && <LanguageModal onLanguageSelect={changeLanguage} />}
     </LanguageContext.Provider>
   );
 };
