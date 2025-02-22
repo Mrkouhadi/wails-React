@@ -10,6 +10,8 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
+const appName = "wails-react-template"
+
 //go:embed all:frontend/dist
 var assets embed.FS
 
@@ -20,7 +22,7 @@ func main() {
 	app := NewApp()
 
 	err := wails.Run(&options.App{
-		Title:            "myproject",
+		Title:            appName,
 		Width:            1024,
 		Height:           768,
 		MinWidth:         1024,
@@ -36,8 +38,8 @@ func main() {
 
 		Mac: &mac.Options{
 			About: &mac.AboutInfo{
-				Title:   "myproject",
-				Message: "© 2024 www.myproject.com",
+				Title:   appName,
+				Message: "© 2024 www.my-app.com",
 				Icon:    icon,
 			},
 			WindowIsTranslucent: false,
@@ -69,7 +71,7 @@ func main() {
 			Icon:                icon,
 			WindowIsTranslucent: false,
 			WebviewGpuPolicy:    linux.WebviewGpuPolicyAlways,
-			ProgramName:         "myproject",
+			ProgramName:         appName,
 		},
 		Debug: options.Debug{
 			OpenInspectorOnStartup: false,

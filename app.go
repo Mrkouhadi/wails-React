@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
+
 
 // App struct
 type App struct {
@@ -43,11 +44,8 @@ func (a *App) BeforeClose(ctx context.Context) (prevent bool) {
 	return response == "Cancel"
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
-}
-
+// handle User prefrences (language, theme, .....)
+// UserPreferences holds user-specific settings
 type UserPreferences struct {
 	Language string `json:"language"`
 	Theme    string `json:"theme"`
@@ -61,7 +59,7 @@ func (a *App) SavePreferences(pref UserPreferences) error {
 		return err
 	}
 
-	// Update only the passed fields
+	// Update only the provided fields
 	if pref.Language != "" {
 		currentPref.Language = pref.Language
 	}
@@ -75,20 +73,42 @@ func (a *App) SavePreferences(pref UserPreferences) error {
 		return err
 	}
 
-	// Save the updated preferences back to the file
-	return os.WriteFile("preferences.json", data, 0644)
+	// Determine the path to the preferences file
+	filePath, err := a.getPreferencesFilePath()
+	if err != nil {
+		return err
+	}
+
+	// Ensure the directory exists
+	if err := os.MkdirAll(filepath.Dir(filePath), 0755); err != nil {
+		return err
+	}
+
+	// Save the updated preferences to the file
+	return os.WriteFile(filePath, data, 0644)
 }
 
 // GetPreferences loads the user preferences from a file
 func (a *App) GetPreferences() (UserPreferences, error) {
 	var pref UserPreferences
 
+	// Determine the path to the preferences file
+	filePath, err := a.getPreferencesFilePath()
+	if err != nil {
+		return pref, err
+	}
+
 	// Check if the preferences file exists
-	_, err := os.Stat("preferences.json")
+	_, err = os.Stat(filePath)
 	if os.IsNotExist(err) {
-		// If the file does not exist, return default preferences
+		// get the machine language
+		l := GetUserMachineLanguage()
+		Language := l[:2]
+		if Language == "" {
+			Language = "en"
+		}
 		return UserPreferences{
-			Language: "en",
+			Language: Language,
 			Theme:    "light",
 		}, nil
 	} else if err != nil {
@@ -96,13 +116,29 @@ func (a *App) GetPreferences() (UserPreferences, error) {
 	}
 
 	// If the file exists, read it
-	file, err := os.Open("preferences.json")
+	file, err := os.Open(filePath)
 	if err != nil {
 		return pref, err
 	}
 	defer file.Close()
 
-	data, _ := io.ReadAll(file)
+	data, err := io.ReadAll(file)
+	if err != nil {
+		return pref, err
+	}
+
 	err = json.Unmarshal(data, &pref)
 	return pref, err
+}
+
+// getPreferencesFilePath returns the path to the preferences file
+func (a *App) getPreferencesFilePath() (string, error) {
+	// Get the user's home directory
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	// Define the preferences file path
+	return filepath.Join(homeDir, "."+appName, "preferences.json"), nil
 }

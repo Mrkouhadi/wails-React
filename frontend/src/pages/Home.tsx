@@ -12,13 +12,13 @@ function Home({}: Props) {
   // handle modal opening and closing
   const [isModalOpen, setIsModalOpen] = useState(false);
   const ConfirmModal = () => {
-    // more logic here
+    // more magic here
     setIsModalOpen(false);
   };
 
   return (
     <div className="DRAGGABLE h-screen flex flex-col justify-between p-4">
-      <h1 className="text-text-primary dark:text-dark-text-primary font-roboto font-extrabold text-6xl text-center">
+      <h1 className="text-text-primary dark:text-dark-text-primary font-roboto font-extrabold text-6xl text-center ">
         {t("headings.greeting")}
       </h1>
       <div className="w-full flex items-center justify-between my-12">

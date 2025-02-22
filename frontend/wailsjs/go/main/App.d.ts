@@ -4,6 +4,4 @@ import {main} from '../models';
 
 export function GetPreferences():Promise<main.UserPreferences>;
 
-export function Greet(arg1:string):Promise<string>;
-
 export function SavePreferences(arg1:main.UserPreferences):Promise<void>;
