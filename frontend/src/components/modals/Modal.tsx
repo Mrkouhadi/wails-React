@@ -1,52 +1,73 @@
 /* 
 // USAGE:
-  const [isModalOpen, setIsModalOpen] = useState(false);
+   // Modal
+  const [smallModalOpen, setSmallModalOpen] = useState(false);
   const ConfirmModal = () => {
-    // more logic here
-    setIsModalOpen(false);
+    // more magic here
+    setSmallModalOpen(false);
   };
-        <button className="" onClick={() => setIsModalOpen(true)}>
-          {t("buttons.modal")}
-        </button>
-        <Modal
-          message={t("headings.greeting")}
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onConfirm={ConfirmModal}
-        />
+      <button className="btn-primary" onClick={() => setSmallModalOpen(true)}>
+          Open Small Modal
+      </button>
+      <Modal
+        isOpen={smallModalOpen}
+        onClose={() => setSmallModalOpen(false)}
+        size="small"
+        onConfirm={ConfirmModal}
+      >
+        <div className="">
+        Content of the modal
+        </div>
+      </Modal>
 */
-import React from "react";
+
 import { useTranslation } from "react-i18next";
+
+type ModalSize = "small" | "medium" | "large";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  message: string;
+  size?: ModalSize;
+  children: React.ReactNode;
 };
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  message,
+  size = "medium",
+  children,
 }) => {
   const [t, _] = useTranslation("global");
-  if (!isOpen) return null;
+
+  // Define width and height based on modal size
+  const modalSizeClasses = {
+    small: "w-[400px] h-[250] p-4",
+    medium: "w-[50%] h-[60%] p-6",
+    large: "w-[85%] h-[90%] ml-16 p-8",
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ${
+        isOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+      }`}
+    >
       <div
-        className={`bg-surface dark:bg-dark-surface transform transition-transform duration-300 ${
+        className={`bg-white dark:bg-gray-800 transition-transform duration-500 ease-in-out rounded-lg shadow-lg ${
           isOpen ? "translate-y-0" : "-translate-y-full"
-        } w-1/3 rounded-lg p-4 flex flex-col items-center justify-center`}
+        } ${modalSizeClasses[size]}`}
       >
-        <h2 className="text-lg text-center text-primary dark:text-dark-primary mb-8">
-          {message}
-        </h2>
+        {children}
         <div className="flex items-center justify-around w-full">
           <button onClick={onClose} className="btn-secondary">
             {t("buttons.cancel")}
           </button>
+
           <button
             onClick={() => {
               onConfirm();

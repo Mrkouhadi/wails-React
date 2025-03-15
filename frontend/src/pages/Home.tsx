@@ -27,11 +27,12 @@ function Home({}: Props) {
           {t("buttons.modal")}
         </button>
         <Modal
-          message={t("headings.greeting")}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onConfirm={ConfirmModal}
-        />
+        >
+          <h1>Hi</h1>
+        </Modal>
 
         {/* a toast */}
         <button
